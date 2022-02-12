@@ -1,0 +1,199 @@
+
+<!--hero-->
+<div class="flex items-center h-screen justify-between overflow-hidden">
+  <div class="space-y-6 sm:mx-16 mx-3 flex flex-col sm:static relative sm:z-0 z-10 md:-translate-y-24">
+    <h1 class="sm:text-6xl text-5xl font-bold mb-4"><span id="headline" class="">Quality Eyewear</span> at your fingertips.</h1>
+    <div class="flex space-x-2">
+      <div class="bg-green-700 md:h-5 h-12 sm:w-2 w-3 mt-1"></div>
+      <span class="text-xl font-semibold">Professionally made for those who want glasses</span>
+    </div>
+    <button class="inline w-32 bg-green-700 hover:bg-green-600 duration-75 text-white px-4 text-xl py-1">See more</button>
+  </div>
+  <div class="h-auto overflow-hidden xl:h-96 sm:relative absolute">
+    <img class="h-screen sm:h-auto object-cover float-right" src="{{ 'black_eyewear_guy.png' | asset_img_url: '2048x2048' }}" alt="">
+  </div>
+</div>
+<!--hero-->
+
+<!--collections-->
+<div class="flex flex-col -translate-y-28">
+  <h1 class="text-3xl font-bold text-center my-10">Our Collections</h1>
+  <div class="flex flex-wrap justify-center sm:space-x-2 sm:space-y-0 space-y-3">
+  {% for collection in collections %}
+    {% if collection.image != blank %}
+      <div class="h-56 w-96 xl:space-y-3 bg-black rounded-sm flex items-center justify-center overflow-hidden">
+        <img class="object-cover hover:scale-105 h-full w-full opacity-30 hover:opacity-40 hover:duration-200" src="{{ collection.image | img_url: 'large' }}" alt="">
+        <a href="{{ collection.url }}" class="text-white font-semibold absolute text-[30px] z-20">{{ collection.title }}</a>
+      </div>
+    {% endif %}  
+  {% endfor %}  
+  </div>
+</div>
+<!--collections-->
+
+<div class="mx-auto bg-black">
+  <h1 class="text-center font-bold translate-y-10 z-10 relative text-white text-4xl word-break my-20 mx-8">What can you benefit from our brand</h1>
+  <div class="bg-black w-full h-[86vh] space-y-8">
+    <!-- img w/text -->
+    <div class="flex sm:flex-row flex-col items-center mx-12 sm:space-x-9">
+      <div>
+        <img src="{{ 'is_image-2.jpg' | asset_img_url: 'large' }}">
+      </div>
+      <div>
+        <span class="text-3xl font-bold text-white text-6xl">Add a little bit of taste to your style.</span>
+      </div>
+    </div>
+
+    <div class="flex sm:flex-row-reverse flex-col items-center mx-12 sm:space-x-9 mb-16">
+      <div>
+        <img src="https://media.istockphoto.com/photos/smiling-young-woman-trying-on-glasses-on-mirror-in-optician-picture-id883887018?b=1&k=20&m=883887018&s=170667a&w=0&h=pe9tIUfjvi5uvY3n1h_Gj3YXMvnINfgi6eO4NZAlucA=" alt="">
+      </div>
+      <div>
+        <span class="text-3xl font-semibold font-bold text-white text-6xl">Take a good care of your eyes.</span>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<!-- product grid -->
+<div class="bg-white py-6 sm:py-8 lg:py-12">
+  <div class="max-w-screen-2xl px-4 md:px-8 mx-auto">
+    <!-- text - start -->
+    <div class="mb-10 md:mb-16">
+      <h2 class="text-gray-800 text-2xl lg:text-3xl font-bold text-center mb-4 md:mb-6">Top deals this week</h2>
+    </div>
+    <!-- text - end -->
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <!-- product - start -->
+    {% for collection in collections %}
+      {% for product in collection.products %}
+        {% if product.tags contains 'top-deals' %}
+        {% assign prod = product %}
+        <div>
+          <a href="#" class="group h-auto block bg-gray-100 overflow-hidden relative">
+            {% if prod.featured_image != blank %}
+              <img src="{{ prod.featured_image | img_url: 'large' }}" loading="lazy" alt="Photo by Austin Wade" class="w-full h-full object-cover object-center group-hover:scale-110 transition duration-200" />
+            {% else %}
+              {{ 'image' | placeholder_svg_tag }}"
+            {% endif %}
+            {% if prod.price_varies %}
+              <span class="text-red-500 line-through mb-0.5">{{ prod.compare_at_price_max | money_with_currency}}</span><span class="font-semibold text-red-500">Save</span>
+              <span class="font-bold text-red-500">{{ prod.compare_at_price_max | minus: prod.price | times: 100.0 |    divided_by: prod.compare_at_price_max | money_without_currency | times: 100 | remove: '.0' | append: '%'}}</span>            
+            {% endif %}
+          </a>
+
+          <div class="flex flex-col justify-between items-start rounded-b-lg gap-2 p-4">
+            <div class="flex flex-col ">
+              <a href="#" class="text-gray-800 hover:text-gray-500 lg:text-lg font-bold transition duration-100">{{ prod.title }}
+              </a>
+              <div class="space-x-1">
+                <span class="font-semibold text-md">{{ prod.price_max | money_with_currency }}</span><span class="text-sm line-through">{{ prod.compare_at_price | money_with_currency }}</span>
+              </div>
+            </div>
+            <button class="bg-green-700 text-white w-full py-1 hover:scale-105 duration-75 hover:bg-green-600">Add to cart</button>
+          </div>
+        </div>
+        {% endif %}    
+      {% endfor %}
+    {% endfor %}
+      <!-- product - end -->
+
+    </div>
+  </div>
+</div>
+<div class="bg-black sm:h-auto flex md:justify-end mt-16">
+  <div class="w-auto flex sm:flex-row flex-col mx-auto">
+    <img class="md:h-[85vh] mx-2 mt-2" src="{{ 'is_image-3.jpg' | asset_img_url: '1024x1024' }}" alt="">
+    <div class="flex sm:flex-col flex-row m-2 md:space-y-2 md:space-x-0 space-x-1">
+      <img src="{{ 'is_image-1.jpg' | asset_img_url: 'large' }}" class="xl:h-[42.5vh] w-1/2 h-auto md:w-auto" alt="">
+      <img class="xl:h-[42.5vh] w-1/2 h-auto md:w-auto" src="{{ 'is_image-2.jpg' | asset_img_url: 'large' }}" alt="">
+    </div>
+  </div>
+</div>
+
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <h1 class="text-3xl font-medium title-font text-gray-900 mb-12 text-center">What our customers say about us</h1>
+    <div class="flex flex-wrap -m-4">
+      <div class="p-4 md:w-1/2 w-full">
+        <div class="h-full bg-gray-100 p-8 rounded">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="block w-5 h-5 text-green-500 mb-4" viewBox="0 0 975.036 975.036">
+            <path d="M925.036 57.197h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.399 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l36 76c11.6 24.399 40.3 35.1 65.1 24.399 66.2-28.6 122.101-64.8 167.7-108.8 55.601-53.7 93.7-114.3 114.3-181.9 20.601-67.6 30.9-159.8 30.9-276.8v-239c0-27.599-22.401-50-50-50zM106.036 913.497c65.4-28.5 121-64.699 166.9-108.6 56.1-53.7 94.4-114.1 115-181.2 20.6-67.1 30.899-159.6 30.899-277.5v-239c0-27.6-22.399-50-50-50h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.4 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l35.9 75.8c11.601 24.399 40.501 35.2 65.301 24.399z"></path>
+          </svg>
+          <p class="leading-relaxed mb-6">Pair of glasses i got from here are life savers, looking at computers all day at work were burning my eyes.</p>
+          <a class="inline-flex items-center">
+            <img alt="testimonial" src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center">
+            <span class="flex-grow flex flex-col pl-4">
+              <span class="title-font font-medium text-gray-900">Holden Caulfield</span>
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="p-4 md:w-1/2 w-full">
+        <div class="h-full bg-gray-100 p-8 rounded">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="block w-5 h-5 text-green-500 mb-4" viewBox="0 0 975.036 975.036">
+            <path d="M925.036 57.197h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.399 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l36 76c11.6 24.399 40.3 35.1 65.1 24.399 66.2-28.6 122.101-64.8 167.7-108.8 55.601-53.7 93.7-114.3 114.3-181.9 20.601-67.6 30.9-159.8 30.9-276.8v-239c0-27.599-22.401-50-50-50zM106.036 913.497c65.4-28.5 121-64.699 166.9-108.6 56.1-53.7 94.4-114.1 115-181.2 20.6-67.1 30.899-159.6 30.899-277.5v-239c0-27.6-22.399-50-50-50h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.4 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l35.9 75.8c11.601 24.399 40.501 35.2 65.301 24.399z"></path>
+          </svg>
+          <p class="leading-relaxed mb-6">Just great, i cant imagine how better my eyes would get without the glasses i purchased from this brand keep doing yor great job.</p>
+          <a class="inline-flex items-center">
+            <img alt="testimonial" src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" class="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center">
+            <span class="flex-grow flex flex-col pl-4">
+              <span class="title-font font-medium text-gray-900">Alex Spencer</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<h1 class="text-4xl font-semibold text-center my-11">Shop with confidence</h1>
+<div class="w-full h-64 flex flex-wrap sm:space-y-0 space-y-8">
+  <div class="mx-auto">
+    <div class="bg-gray-300 h-24 w-24 mx-auto sm:h-36 sm:w-36 rounded-full flex items-center justify-center">
+      <svg class="w-14 sm:w-auto" width="76" height="78" viewBox="0 0 76 78" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <rect width="76" height="78" fill="url(#pattern0)"/>
+        <defs>
+        <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+        <use xlink:href="#image0_93_11" transform="translate(0 0.0128205) scale(0.0111111 0.0108262)"/>
+        </pattern>
+        <image id="image0_93_11" width="90" height="90" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAABmJLR0QA/wD/AP+gvaeTAAAEc0lEQVR4nO2cX4gVVRzHP17C3QRRUClxTW2DEv9gavoiQqQP0ouCGBsUhkRK1kIPymq9JBmKIGiFClps6Jr00OuGSEFkK5Qk2GuFSqaurey9G2Hb9vC75nXunDP/zp05s/0+cNhlzvmd+c73nvu7Z2bODCiKoiiKoiiKoiiKoiiKoightAPdwABQBcbGeRkFBoHvgIPAamBCZhcj6AB+zPlAfSwXgXUZvTTSjpocLMeBtiymhtHtwYH5WL4GJmXwtYkBDw7K1/IFDvP2sAcH5HPZntbY4Cc0lraj/wkjwALgl6SBFfdaxjWTgA9ddFT0V7MsZUNSYzV1pOM3YD5wJ26Apo50zATeTRKgIzo9/wCrgPNxGqvR2bgELAfuRjXU1JGNxcCbcRrqiM7OCLAQ+NnWSEd0dmLNrdVoN6wDNtoaaOpwx3Vkbj0Up3Gcs6KkfNUQeyxG+6nACmA3cMWg4WoKHd8E+ng8Yfz7Bi2NxZhCfEwdQ8AF4D3gKaCvWDmJ2AqsDKvw0ehGasBLyIX3MlBBvrUPBSuaNqTgCeBpS/2MiPhu5JQW4AbwGXCtoX4U6AG+jehnEfINMDE9In4mcqZnwtZ3I4uBt4D9tkZpcvQbMeNMOfpioM0QzflzAvIh2HL03gQ6wnL08wnjbaUGzGvs3MfUMQXoCmwbA34tQEtamubWPhoNcsEmSHvuKrLxwFIFFzn6BvC9oe5RYFbC/gaBk4FtbQS+iiGcAM4Z6hYiC2NsDABrLfX9OByYrufROwOxYTn6lXq7nfX/w348uwL9JJ1Hr6L5OJLOo/8O6SO2Vy5GdFY+jqifhsypS40PRttYCnxCdNoA+/QuztQsanqXaU2HC6PXA68b6ubGiF8JTEbuw10O1G1GDIxDFzLfTstS4EyGeCsujJ4NrMkQfwRYAvyOjNw/G+r2AltwvByrCHya3j0CvBrYdh34qAAtzvEtR+8AjgJ/NWzbB7yGpBcbfchZpok9wJOW+h+ATZb6F5E06QQfTsG3hbTZE2jj62VSo1c+pY579AATA9sOALcL0OIMH42eDbwc2HaH6DM7r9FbWa3lP399HNHjEjU6J9TonFCjc0KNzgk1OifU6JxQo3NCjc4JNTon1OicqHB/sUes5aYRVIFdyCXIifW/u5GVO2XAtf4/gA+Ah0FuJblYBjUMLDPscDn+v2CllfqPgDyD4UJo1I3Rtz0wsyj9NXBndNSSgE4PzCxKf60C9EbsIC7XIurT3H7Kk1bq7wVJ1IeRxO3riCjriL4NHKL+Y5iULw2d7oqIe8cQ159GRAZKo9/0o1AFnjHErEB+ENIcoGtKo38e5pWVVeRA7s1DO5GRYBJ5F3isVUINlEr/KcOOk5ZPWynSQmn0z0DWymUReRNZBlYEpdL/LOnn4DXktZRFUir9a4FbCUXeBJ7LU6SFUunvAD5Hnge0CRxF1h8nfaal1eSi3+UbZRcALyCjZA7yAOUt5B1xZ4HTwE8O9+easutXFEVRFEVRFEVRFEXJjX8Bl4P7WQ8/XJkAAAAASUVORK5CYII="/>
+        </defs>
+      </svg>
+    </div>
+    <span class="font-bold text-2xl">Free Shipping</span>
+  </div>
+  <div class="mx-auto md:translate-x-8">
+    <div class="bg-gray-300 h-24 w-24 mx-auto sm:h-36 sm:w-36 rounded-full flex items-center justify-center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M19.965 8.521C19.988 8.347 20 8.173 20 8c0-2.379-2.143-4.288-4.521-3.965C14.786 2.802 13.466 2 12 2s-2.786.802-3.479 2.035C6.138 3.712 4 5.621 4 8c0 .173.012.347.035.521C2.802 9.215 2 10.535 2 12s.802 2.785 2.035 3.479A3.976 3.976 0 0 0 4 16c0 2.379 2.138 4.283 4.521 3.965C9.214 21.198 10.534 22 12 22s2.786-.802 3.479-2.035C17.857 20.283 20 18.379 20 16c0-.173-.012-.347-.035-.521C21.198 14.785 22 13.465 22 12s-.802-2.785-2.035-3.479zm-9.01 7.895-3.667-3.714 1.424-1.404 2.257 2.286 4.327-4.294 1.408 1.42-5.749 5.706z">
+        </path>
+      </svg>
+    </div>
+    <span class="font-bold text-2xl">90 day Guarantee</span>
+  </div>
+  <div class="mx-auto">
+    <div class="bg-gray-300 h-24 w-24 mx-auto sm:h-36 sm:w-36 rounded-full flex items-center justify-center">
+      <svg class="w-14 sm:w-auto"  height="80" viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M34.7083 54.5417C37.4467 54.5417 39.6667 52.3217 39.6667 49.5833C39.6667 46.8449 37.4467 44.625 34.7083 44.625C31.9699 44.625 29.75 46.8449 29.75 49.5833C29.75 52.3217 31.9699 54.5417 34.7083 54.5417Z" fill="black"/>
+        <path d="M64.4583 54.5417C67.1967 54.5417 69.4167 52.3217 69.4167 49.5833C69.4167 46.8449 67.1967 44.625 64.4583 44.625C61.7199 44.625 59.5 46.8449 59.5 49.5833C59.5 52.3217 61.7199 54.5417 64.4583 54.5417Z" fill="black"/>
+        <path d="M79.3333 39.8154C78.151 32.8447 74.5406 26.517 69.1412 21.9524C63.7418 17.3879 56.9015 14.8808 49.8312 14.875C34.8075 14.875 18.6433 27.3204 19.9325 46.8562C26.0468 44.3542 31.4469 40.3781 35.6515 35.2824C39.8561 30.1867 42.7345 24.1298 44.03 17.6517C50.5254 30.6921 63.8633 39.6667 79.3333 39.8154Z" fill="black"/>
+        <path d="M94.1588 44.625C93.6134 17.9988 72.7884 0 49.5834 0C26.7254 0 5.70209 17.5029 5.00792 44.625H0V74.375H14.875V45.5671C14.875 26.5767 29.5021 9.96625 48.4925 9.42083C53.1402 9.27949 57.769 10.0725 62.1046 11.7529C66.4402 13.4334 70.3943 15.967 73.7327 19.2037C77.0711 22.4404 79.7259 26.3142 81.5396 30.5958C83.3534 34.8773 84.2892 39.4793 84.2917 44.1292V79.3333H44.625V89.25H94.2084V74.375H99.1667V44.625H94.1588Z" fill="black"/>
+      </svg>
+    </div>
+    <span class="font-bold text-2xl">24/7 Customer Service</span>
+  </div>
+</div>
+
+
+<!-- {% for product in collections.frontpage.products limit:4 %}
+  <div>
+    <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+    {{ product.price | money }}
+    {% unless product.available %}<br><strong>sold out</strong>{% endunless %}
+    <a href="{{ product.url | within: collection }}">
+      <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+    </a>
+  </div>
+{% endfor %} -->

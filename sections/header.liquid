@@ -1,0 +1,107 @@
+{% if section.settings.show_announcement %}
+  <div x-data="{showAnnouncement:true} top-0 sticky">
+      <nav x-show="showAnnouncement" class="bg-black p-5 text-center flex justify-around mx-auto">
+        <span class="text-white lg:translate-x-60">Get 10% Discount on every product until June 9th</span>
+        <svg @click="showAnnouncement=false" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:translate-x-32 xl:translate-x-36 text-white bg-gray-800 rounded" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </nav>
+  </div>
+{% endif %}  
+<!-- navigation -->
+<div x-data="{showSideBar : false}" class="overflow-hidden">
+    <nav class="h-12 flex justify-around items-center overflow-hidden top-0 sticky">
+      <div class="-mx-16 xl:-mx-28 sm:mx-0 flex translate-x-16">
+          <img class="h-7 w-auto" src="{{ 'iris-logo.png' | asset_img_url: 'medium' }}" alt="">
+      </div>
+      <div class="space-x-11 invisible sm:visible">
+          {% for link in linklists.main-menu.links %}
+            <a href="{{ link.url }}" class="hover:border-b hover:border-b-2 duration-75 border-b-black py-1.5">{{ link.title }}</a>
+          {% endfor %}
+      </div>
+      <div class="absolute visible sm:invisible inset-x-4">
+        <div class="relative py-3 mx-auto" @click="showSideBar=!showSideBar">
+          <nav x-data="{ open: false }">
+              <button class="text-gray-500 w-10 h-10 relative focus:outline-none bg-white" @click="open = !open" @click.away="open=false">
+                  <span class="sr-only">Open main menu</span>
+                  <div class="block w-5 absolute left-1/2 top-1/2   transform  -translate-x-1/2 -translate-y-1/2">
+                      <span aria-hidden="true" class="block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out" :class="{'rotate-45': open,' -translate-y-1.5': !open }"></span>
+                      <span aria-hidden="true" class="block absolute  h-0.5 w-5 bg-current   transform transition duration-500 ease-in-out" :class="{'opacity-0': open } "></span>
+                      <span aria-hidden="true" class="block absolute  h-0.5 w-5 bg-current transform  transition duration-500 ease-in-out" :class="{'-rotate-45': open, ' translate-y-1.5': !open}"></span>
+                  </div>
+              </button>
+          </nav>
+      </div>
+  
+      </div>
+      <div class="sm:invisible visible -translate-x-16 mb-1">
+          <img class="h-7 w-auto" src="{{ 'iris-logo.png' | asset_img_url: 'medium' }}" alt="">
+      </div>
+  
+      <div class="space-x-9 sm:space-x-2">
+        <a class="invisible sm:visible" href="">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </a>
+        <a class="relative -inset-y-3 sm:inset-y-0 inset-x-6" href="/cart">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <div class="bg-green-500 h-2 w-2 hidden rounded-full float-right"></div>
+        </a>
+      </div>
+    </nav>
+  
+    <!--sidebar-->
+    <div x-show="showSideBar" x-transition @click.away="showSideBar=false" class="absolute shadow h-full w-52 flex flex-col space-y-7 p-11">
+      <span>Home</span>
+      <span>Catalog</span>
+      <span>Contact</span>
+      <span>About Us</span>
+      <div class="flex space-x-2 py-6">
+        <button class="font-semibold text-sm bg-green-700 text-white px-1 py-1">Log in</button>
+        <button class="font-semibold border border-2 px-1 text-sm border-green-700 ">Sign Up</button>
+      </div>
+    </div>
+  </div>
+
+{% schema %}
+  {
+    "name": "Announcement Bar",
+    "class": "announcement bar",
+    "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_announcement",
+          "default": true,
+          "label": "Show Announcement Bar"
+        }
+    ],
+    "presets": [
+        {
+          "name":"simple_hero",
+          "category": "Hero"
+        }
+    ]
+  }
+{% endschema %}
+
+<!-- navigation -->
+
+{%- comment -%}
+  {% for link in linklists.main-menu.links %}
+  <a href="{{ link.url }}" class="text-gray-500">{{ link.title }}</a>
+  {% if link.links != blank %}
+    {% for child_link in link.links %}
+      {% assign ch_link = child_link %}
+      <div class="hidden">
+        <span class="text-green-500">{{ ch_link.title }}</span>
+      </div>
+    {% endfor %} 
+  {% endif %}
+{% endfor %}
+{%- endcomment -%}
+
+
+

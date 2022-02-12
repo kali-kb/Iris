@@ -1,0 +1,214 @@
+{% if cart.item_count > 0 %}
+    
+  <h1 class="text-4xl mx-5 xl:mx-[75px] font-semibold my-9 md:mx-16">Shopping Cart</h1>
+  <!-- cards -->
+  <!-- cart-item -->
+  {% for item in cart.items %}
+  <div id="cart-section" class="flex sm:flex-row flex-col justify-around">
+    <div id="cart-list" class="space-y-9 mb-28 xl:-translate-x-16">
+    <div class="shadow sm:w-[100vh] flex justify-between sm:flex-row flex-col sm:mx-12">
+    <div class="flex items-center sm:flex-row flex-col">
+      <div class="sm:h-44 sm:w-44 sm:px-4 p-2">
+        <img class="object-contain h-full" src="https://images.unsplash.com/photo-1593642532744-d377ab507dc8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60" alt="">
+      </div>
+      <div class="flex sm:flex-col flex-row px-4 space-y-1 sm:space-x-0 space-x-3">
+        <span class="font-semibold sm:p-0 p-2">{{ item.title }}</span>
+        <div class="h-8 w-8 bg-yellow-200 rounded-full border border-white border-2"></div>
+        <div class="border w-10 text-center py-1">XL</div>
+        {%- comment -%}{{ item.variant.title }}{%- endcomment -%}
+        <span class="sm:p-0 p-1 font-semibold">{{ item.price | money_with_currency }}</span>
+      </div>
+    </div>
+    <div class="flex flex-col justify-around sm:-translate-x-3">
+      <div class="ml-auto border bg-white rounded-full p-2 m-2 sm:mb-auto sm:translate-y-0 translate-y-12">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-red-500 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+      </div>
+      <div class="">
+        <div class="w-auto inline-flex flex h-12 flex space-x-1 items-center justify-center pr-2 pb-1 pl-2">
+          <div id="decrease" class="w-10 h-10 border bg-white rounded-full flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+            </svg>
+          </div>
+          <div id="numBox" class="w-24 h-10 border bg-white flex items-center justify-center font-semibold text-lg">
+            <span>{{ item.quantity }}</span>
+            
+          </div>
+          <div id="decrease" class="w-10 h-10 border bg-white rounded-full flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+          </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  </div>
+
+  <div>
+  <div class="bg-white shadow h-auto sm:w-60 w-auto mx-2">
+    <div class="flex flex-col items-center space-y-11 mt-9">
+      <h2 class="text-3xl font-semibold">Cart total</h2>
+      <div class="flex flex-col items-center space-y-2">
+        <span class="text-xl font-semibold">Total price</span>
+        <span class="font-semibold">$109.99</span>
+      </div>
+    </div>
+    <div class="flex justify-center mt-4">
+      <svg width="30" height="30" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <rect width="70" height="70" fill="url(#pattern0)"/>
+        <defs>
+        <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+        <use xlink:href="#image0_31_8" transform="scale(0.0104167)"/>
+        </pattern>
+        <image id="image0_31_8" width="96" height="96" xlink:href="data:image/png;base64,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"/>
+        </defs>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+  width="30" height="30"
+  viewBox="0 0 48 48"
+  style=" fill:#000000;"><path fill="#0d62ab" d="M18.7,13.767l0.005,0.002C18.809,13.326,19.187,13,19.66,13h13.472c0.017,0,0.034-0.007,0.051-0.006	C32.896,8.215,28.887,6,25.35,6H11.878c-0.474,0-0.852,0.335-0.955,0.777l-0.005-0.002L5.029,33.813l0.013,0.001	c-0.014,0.064-0.039,0.125-0.039,0.194c0,0.553,0.447,0.991,1,0.991h8.071L18.7,13.767z"></path><path fill="#199be2" d="M33.183,12.994c0.053,0.876-0.005,1.829-0.229,2.882c-1.281,5.995-5.912,9.115-11.635,9.115	c0,0-3.47,0-4.313,0c-0.521,0-0.767,0.306-0.88,0.54l-1.74,8.049l-0.305,1.429h-0.006l-1.263,5.796l0.013,0.001	c-0.014,0.064-0.039,0.125-0.039,0.194c0,0.553,0.447,1,1,1h7.333l0.013-0.01c0.472-0.007,0.847-0.344,0.945-0.788l0.018-0.015	l1.812-8.416c0,0,0.126-0.803,0.97-0.803s4.178,0,4.178,0c5.723,0,10.401-3.106,11.683-9.102	C42.18,16.106,37.358,13.019,33.183,12.994z"></path><path fill="#006fc4" d="M19.66,13c-0.474,0-0.852,0.326-0.955,0.769L18.7,13.767l-2.575,11.765	c0.113-0.234,0.359-0.54,0.88-0.54c0.844,0,4.235,0,4.235,0c5.723,0,10.432-3.12,11.713-9.115c0.225-1.053,0.282-2.006,0.229-2.882	C33.166,12.993,33.148,13,33.132,13H19.66z">
+        </path>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+  width="30" height="30"
+  viewBox="0 0 48 48"
+  style=" fill:#000000;"><path fill="#ffc107" d="M44,24c0,11.044-8.956,20-20,20S4,35.044,4,24S12.956,4,24,4S44,12.956,44,24z"></path><path fill="#fff8e1" d="M17,34V14h8.199c2.41,0,4.234,0.465,5.48,1.395s1.867,2.293,1.867,4.086c0,0.98-0.25,1.844-0.746,2.59c-0.5,0.746-1.195,1.293-2.086,1.641c1.016,0.258,1.816,0.773,2.402,1.555C32.703,26.043,33,26.992,33,28.121c0,1.922-0.609,3.379-1.828,4.367S28.219,33.98,25.965,34H17z M21,22h4.363c2.063-0.035,3.098-0.824,3.098-2.445c0-0.906-0.262-1.559-0.785-1.957S26.328,17,25.199,17H21V22z M21,25v6h4.844C26.805,31,29,30.531,29,28.391S27.883,25.027,26,25H21z"></path><path fill="#fff8e1" d="M20 11h3v5h-3V11zM25 11h3v5h-3V11zM20 32h3v5h-3V32zM25 32h3v5h-3V32z">
+        </path>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+  width="30" height="30"
+  viewBox="0 0 48 48"
+  style=" fill:#000000;"><path fill="#1565C0" d="M45,35c0,2.209-1.791,4-4,4H7c-2.209,0-4-1.791-4-4V13c0-2.209,1.791-4,4-4h34c2.209,0,4,1.791,4,4V35z"></path><path fill="#FFF" d="M15.186 19l-2.626 7.832c0 0-.667-3.313-.733-3.729-1.495-3.411-3.701-3.221-3.701-3.221L10.726 30v-.002h3.161L18.258 19H15.186zM17.689 30L20.56 30 22.296 19 19.389 19zM38.008 19h-3.021l-4.71 11h2.852l.588-1.571h3.596L37.619 30h2.613L38.008 19zM34.513 26.328l1.563-4.157.818 4.157H34.513zM26.369 22.206c0-.606.498-1.057 1.926-1.057.928 0 1.991.674 1.991.674l.466-2.309c0 0-1.358-.515-2.691-.515-3.019 0-4.576 1.444-4.576 3.272 0 3.306 3.979 2.853 3.979 4.551 0 .291-.231.964-1.888.964-1.662 0-2.759-.609-2.759-.609l-.495 2.216c0 0 1.063.606 3.117.606 2.059 0 4.915-1.54 4.915-3.752C30.354 23.586 26.369 23.394 26.369 22.206z"></path><path fill="#FFC107" d="M12.212,24.945l-0.966-4.748c0,0-0.437-1.029-1.573-1.029c-1.136,0-4.44,0-4.44,0S10.894,20.84,12.212,24.945z">
+        </path>
+      </svg>
+    </div>
+    <div class="flex flex-col items-center space-y-2 py-4">
+      <button class="bg-green-700 text-white px-11 py-1 font-semibold">Checkout</button>
+      <button class="bg-green-700 text-white px-[51px] py-1 font-semibold">Update</button>
+    </div>
+  </div>
+
+  <div class="h-auto w-auto mx-2">
+    <div class="w-full h-64 flex flex-wrap items-center">
+    <div class="mx-auto">
+      <div class="bg-gray-300 h-8 w-8 mx-auto rounded-full flex items-center justify-center">
+        <svg class="w-14 sm:w-auto" width="30" height="30" viewBox="0 0 76 78" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <rect width="76" height="78" fill="url(#pattern0)"/>
+          <defs>
+          <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+          <use xlink:href="#image0_93_11" transform="translate(0 0.0128205) scale(0.0111111 0.0108262)"/>
+          </pattern>
+          <image id="image0_93_11" width="90" height="90" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAABmJLR0QA/wD/AP+gvaeTAAAEc0lEQVR4nO2cX4gVVRzHP17C3QRRUClxTW2DEv9gavoiQqQP0ouCGBsUhkRK1kIPymq9JBmKIGiFClps6Jr00OuGSEFkK5Qk2GuFSqaurey9G2Hb9vC75nXunDP/zp05s/0+cNhlzvmd+c73nvu7Z2bODCiKoiiKoiiKoiiKoiiKoightAPdwABQBcbGeRkFBoHvgIPAamBCZhcj6AB+zPlAfSwXgXUZvTTSjpocLMeBtiymhtHtwYH5WL4GJmXwtYkBDw7K1/IFDvP2sAcH5HPZntbY4Cc0lraj/wkjwALgl6SBFfdaxjWTgA9ddFT0V7MsZUNSYzV1pOM3YD5wJ26Apo50zATeTRKgIzo9/wCrgPNxGqvR2bgELAfuRjXU1JGNxcCbcRrqiM7OCLAQ+NnWSEd0dmLNrdVoN6wDNtoaaOpwx3Vkbj0Up3Gcs6KkfNUQeyxG+6nACmA3cMWg4WoKHd8E+ng8Yfz7Bi2NxZhCfEwdQ8AF4D3gKaCvWDmJ2AqsDKvw0ehGasBLyIX3MlBBvrUPBSuaNqTgCeBpS/2MiPhu5JQW4AbwGXCtoX4U6AG+jehnEfINMDE9In4mcqZnwtZ3I4uBt4D9tkZpcvQbMeNMOfpioM0QzflzAvIh2HL03gQ6wnL08wnjbaUGzGvs3MfUMQXoCmwbA34tQEtamubWPhoNcsEmSHvuKrLxwFIFFzn6BvC9oe5RYFbC/gaBk4FtbQS+iiGcAM4Z6hYiC2NsDABrLfX9OByYrufROwOxYTn6lXq7nfX/w348uwL9JJ1Hr6L5OJLOo/8O6SO2Vy5GdFY+jqifhsypS40PRttYCnxCdNoA+/QuztQsanqXaU2HC6PXA68b6ubGiF8JTEbuw10O1G1GDIxDFzLfTstS4EyGeCsujJ4NrMkQfwRYAvyOjNw/G+r2AltwvByrCHya3j0CvBrYdh34qAAtzvEtR+8AjgJ/NWzbB7yGpBcbfchZpok9wJOW+h+ATZb6F5E06QQfTsG3hbTZE2jj62VSo1c+pY579AATA9sOALcL0OIMH42eDbwc2HaH6DM7r9FbWa3lP399HNHjEjU6J9TonFCjc0KNzgk1OifU6JxQo3NCjc4JNTon1OicqHB/sUes5aYRVIFdyCXIifW/u5GVO2XAtf4/gA+Ah0FuJblYBjUMLDPscDn+v2CllfqPgDyD4UJo1I3Rtz0wsyj9NXBndNSSgE4PzCxKf60C9EbsIC7XIurT3H7Kk1bq7wVJ1IeRxO3riCjriL4NHKL+Y5iULw2d7oqIe8cQ159GRAZKo9/0o1AFnjHErEB+ENIcoGtKo38e5pWVVeRA7s1DO5GRYBJ5F3isVUINlEr/KcOOk5ZPWynSQmn0z0DWymUReRNZBlYEpdL/LOnn4DXktZRFUir9a4FbCUXeBJ7LU6SFUunvAD5Hnge0CRxF1h8nfaal1eSi3+UbZRcALyCjZA7yAOUt5B1xZ4HTwE8O9+easutXFEVRFEVRFEVRFEXJjX8Bl4P7WQ8/XJkAAAAASUVORK5CYII="/>
+          </defs>
+        </svg>
+      </div>
+    </div>
+    <div class="mx-auto md:translate-x-8">
+      <div class="bg-gray-300 h-8 w-8 mx-auto rounded-full flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M19.965 8.521C19.988 8.347 20 8.173 20 8c0-2.379-2.143-4.288-4.521-3.965C14.786 2.802 13.466 2 12 2s-2.786.802-3.479 2.035C6.138 3.712 4 5.621 4 8c0 .173.012.347.035.521C2.802 9.215 2 10.535 2 12s.802 2.785 2.035 3.479A3.976 3.976 0 0 0 4 16c0 2.379 2.138 4.283 4.521 3.965C9.214 21.198 10.534 22 12 22s2.786-.802 3.479-2.035C17.857 20.283 20 18.379 20 16c0-.173-.012-.347-.035-.521C21.198 14.785 22 13.465 22 12s-.802-2.785-2.035-3.479zm-9.01 7.895-3.667-3.714 1.424-1.404 2.257 2.286 4.327-4.294 1.408 1.42-5.749 5.706z">
+          </path>
+        </svg>
+      </div>
+    </div>
+    <div class="mx-auto">
+      <div class="bg-gray-300 h-8 w-8 mx-auto rounded-full flex items-center justify-center">
+        <svg class="w-14 sm:w-auto" width="30" height="30" viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M34.7083 54.5417C37.4467 54.5417 39.6667 52.3217 39.6667 49.5833C39.6667 46.8449 37.4467 44.625 34.7083 44.625C31.9699 44.625 29.75 46.8449 29.75 49.5833C29.75 52.3217 31.9699 54.5417 34.7083 54.5417Z" fill="black"/>
+          <path d="M64.4583 54.5417C67.1967 54.5417 69.4167 52.3217 69.4167 49.5833C69.4167 46.8449 67.1967 44.625 64.4583 44.625C61.7199 44.625 59.5 46.8449 59.5 49.5833C59.5 52.3217 61.7199 54.5417 64.4583 54.5417Z" fill="black"/>
+          <path d="M79.3333 39.8154C78.151 32.8447 74.5406 26.517 69.1412 21.9524C63.7418 17.3879 56.9015 14.8808 49.8312 14.875C34.8075 14.875 18.6433 27.3204 19.9325 46.8562C26.0468 44.3542 31.4469 40.3781 35.6515 35.2824C39.8561 30.1867 42.7345 24.1298 44.03 17.6517C50.5254 30.6921 63.8633 39.6667 79.3333 39.8154Z" fill="black"/>
+          <path d="M94.1588 44.625C93.6134 17.9988 72.7884 0 49.5834 0C26.7254 0 5.70209 17.5029 5.00792 44.625H0V74.375H14.875V45.5671C14.875 26.5767 29.5021 9.96625 48.4925 9.42083C53.1402 9.27949 57.769 10.0725 62.1046 11.7529C66.4402 13.4334 70.3943 15.967 73.7327 19.2037C77.0711 22.4404 79.7259 26.3142 81.5396 30.5958C83.3534 34.8773 84.2892 39.4793 84.2917 44.1292V79.3333H44.625V89.25H94.2084V74.375H99.1667V44.625H94.1588Z" fill="black"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  </div>
+  <ul class="flex space-x-2 justify-center py-7 sm:w-60 w-auto mx-2">
+    <li class="ring ring-1 ring-black px-2 py-1">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+      </svg>
+    </li>
+    <li class="ring ring-1 ring-black px-3 py-1">1</li>
+    <li class="ring ring-1 ring-black px-3 py-1">2</li>
+    <li class="ring ring-1 ring-black px-3 py-1">3</li>
+    <li class="ring ring-1 ring-black px-2 py-1">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+      </svg>
+    </li>
+  </ul>
+
+  </div>
+
+  </div>
+
+  <!-- cart-item -->
+
+  <div class="bg-white shadow h-60 w-60">
+    <div class="flex flex-col items-center space-y-11">
+      <h2 class="text-3xl font-semibold">Cart total</h2>
+      <div class="flex flex-col items-center space-y-2">
+        <span class="text-xl font-semibold">Total price</span>
+        <span class="font-semibold">$109.99</span>
+      </div>
+      
+    </div>
+    <div class="flex flex-col items-center">
+      <button class="bg-green-700 text-white">Checkout</button>
+      <button>Update</button>
+    </div>
+    
+  </div>
+{% endif %}
+
+{% if cart.item_count > 0 %}
+  <h1>cart</h1>
+  <form action="/cart" method="post" novalidate>
+    <table>
+      <thead>
+        <th colspan="2">Prod</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>total</th>
+      </thead>
+      <tbody>
+        {% for item in cart.items %}
+          <tr>
+            <td>
+              <a href="{{ item.url | within: collections.all }}">
+                <img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}">
+              </a>
+            </td>
+            <td>
+              <a href="{{ item.url }}">{{ item.product.title }}</a>
+              {{ item.variant.title }}
+              <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">remove</a>
+            </td>
+            <td>{{ item.price | money }}</td>
+            <td>
+              <input type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0">
+            </td>
+            <td>
+              {% if item.original_line_price != item.line_price %}{{ item.original_line_price | money }}{% endif %}
+              {{ item.line_price | money }}
+              {% for discount in item.discounts %}{{ discount.title }}{% endfor %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div>
+      <p>sub total : {{ cart.total_price | money }}</p>
+      <button type="submit" name="update">Update</button>
+      <button type="submit" name="checkout">Checkout</button>
+    </div>
+  </form>
+{% else %}
+  <h2>cart</h2>
+  Cart is empty
+{% endif %}

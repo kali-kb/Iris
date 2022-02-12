@@ -1,0 +1,270 @@
+<!-- <button @click.away="$refs.bt2.classList.remove('bg-black','text-white')" @click="$refs.bt2.classList.add('bg-black','text-white')" x-ref="bt2" type="button" class="w-14 h-12 flex justify-center items-center hover:bg-gray-100 active:bg-gray-200  text-sm font-semibold text-center border transition duration-100">S</button>
+            <span @click.away="$refs.bt3.classList.remove('bg-black','text-white')" @click="$refs.bt3.classList.add('bg-black','text-white')" x-ref="bt3" class="w-14 h-12 flex justify-center border items-center text-sm font-semibold text-center">M</span>
+            <button @click.away="$refs.bt4.classList.remove('bg-black','text-white')" @click="$refs.bt4.classList.add('bg-black','text-white')" x-ref="bt4" type="button" class="w-14 h-12 flex justify-center items-center hover:bg-gray-100 active:bg-gray-200  text-sm font-semibold text-center border  transition duration-100">L</button>
+            <span class="w-14 h-12 flex justify-center items-center bg-white text-gray-400 text-sm font-semibold text-center border border-transparent">XL</span> -->
+<!--stock available-->
+{%- comment -%}
+{% for variant in product.variants  %}
+  {{ variant.inventory_quantity }}
+{% endfor %}
+{%- endcomment -%}
+
+<!--stock available-->
+
+<!-- {{ product.selected_or_first_available_variant }}
+{{ product.selected_variant }} -->
+<!-- {% for variant in product.variant %}
+  {% if variant.available == false %}
+    {{ variant.title }}
+  {% endif %}
+{% endfor %} -->
+
+<!-- colors
+{% for colors in product.options_by_name['Color'].values %}
+  {{ colors }}
+{% endfor %} -->
+
+
+
+<!-- <nav class="flex sm:mx-16 mx-4 xl:translate-x-3 my-4" aria-label="Breadcrumb">
+  <ol class="inline-flex items-center space-x-1 md:space-x-3">
+    <li class="inline-flex items-center">
+      <a href="/" class="inline-flex items-center text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+        <svg class="mr-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+        Home
+      </a>
+    </li>
+    <li>
+      <div class="flex items-center">
+        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+        <a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">Catalog</a>
+      </div>
+    </li>
+    <li aria-current="page">
+      <div class="flex items-center">
+        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+        <span class="ml-1 text-sm font-medium text-gray-400 md:ml-2 dark:text-gray-500">Product</span>
+      </div>
+    </li>
+  </ol>
+</nav> -->
+<div class="mx-20 my-8">
+  {% render 'breadcrumbs' %}
+</div>
+<!-- {% if product.featured_image != blank %}
+  {% assign image = product.featured_image %}
+    <img class="object-cover" src="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.title }}">
+{% else %}
+  {{ 'product-1' | placeholder_svg_tag }}  
+{% endif %} -->
+
+<!--sidebar-->
+<div class="absolute bg-white hidden h-full w-40 flex flex-col space-y-7 p-11">
+  <span>Home</span>
+  <span>Catalog</span>
+  <span>Contact</span>
+  <span>About Us</span>
+</div>
+<!-- navigation -->
+{% form 'product', product %}
+<div class="bg-white py-6 sm:py-8 lg:py-12 sm:mx-4 ">
+  <div class="max-w-screen-xl px-4 md:px-8 mx-auto">
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- images - start -->
+      <div x-data="{activeImage:0}" class="grid lg:grid-cols-5 gap-4">
+        <div class="flex lg:flex-col order-last lg:order-none gap-3 items-center justify-center">
+          <!-- <div class="sm:px-4 px-2 sm:py-3 py-2 sm:m-3 m-0 ring ring-black">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 lg:visible invisible lg:w-auto lg:h-auto w-0 h-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 lg:invisible visible lg:h-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </div> -->
+          {% if product.images != blank %}
+            {% for product_image in product.images limit:3 %}
+              <div class="bg-gray-100 rounded-sm overflow-hidden">
+                <img src="{{ product_image | img_url: 'medium' }}" loading="lazy" alt="Photo by Himanshu Dewangan" class="w-full h-full object-cover object-center" />
+              </div>
+            {% endfor %}
+            <!-- <div class="sm:px-4 px-2 sm:py-3 py-2 sm:m-3 m-0 ring ring-black">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 lg:visible invisible lg:w-auto lg:h-auto w-0 h-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 lg:invisible visible lg:h-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div> -->
+          {% endif %}
+        </div>
+        {% for option in product.options %}
+          {{ option.title }}
+        {% endfor %}
+        <div class="lg:col-span-4 bg-gray-100 rounded-sm overflow-hidden relative">
+          {% if product.featured_image != blank %}
+            <img src="{{ product.featured_image | img_url: 'large' }}" loading="lazy" alt="{{ product.title }}" class="w-full h-full object-cover object-center" />
+          {% endif %}
+          <!-- <img src="{{  }}" loading="lazy" alt="Photo by Himanshu Dewangan" class="w-full h-full object-cover object-center" /> -->
+        </div>
+      </div>
+      <!-- images - end -->
+
+      <!-- content - start -->
+      <div class="md:py-8 lg:ml-2">
+        <!-- name - start -->
+
+        {% if product.is_available %}
+          <h2 class="text-xl text-red-500"></h2>
+        {% endif %}
+
+
+        <div class="mb-2 md:mb-3">
+          <span class="inline-block text-gray-500 mb-0.5">Quality Brand</span>
+          <h2 class="text-gray-800 text-2xl lg:text-3xl font-bold">{{ product.title }}</h2>
+        </div>
+        <!-- name - end -->
+        
+        <!-- price start -->
+          <div class="mb-4">
+          <div class="flex items-end gap-2">
+            <span class="text-gray-800 text-xl md:text-2xl font-bold">{{ product.price | money_with_currency }}</span>
+            {% if product.price_varies %}
+              <span class="text-red-500 line-through mb-0.5">{{ product.compare_at_price_max | money_with_currency}}</span><span class="font-semibold text-red-500">Save</span>
+              <span class="font-bold text-red-500">{{ product.compare_at_price_max | minus: product.price | times: 100.0 |    divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0' | append: '%'}}</span>            
+            {% endif %}
+          </div>
+          {% if condition %}
+            
+          {% endif %}
+          <span class="text-gray-500 text-sm">incl. VAT plus shipping</span>
+        </div>
+
+        <!-- price end -->
+
+        <!-- color - start -->
+        {% if product.options_by_name['Color'].values > 0 %}
+        <div x-data="{currentColor:'', class_attr: 'ring ring-1 ring-black'}" class="mb-4 md:mb-6">
+          <span x-text=`Color:${currentColor}` class="inline-block text-gray-500 text-sm md:text-base font-semibold mb-3"></span>
+
+          <div class="flex flex-wrap gap-2">
+            
+            {% for colors in product.options_by_name['Color'].values %}
+              {%- comment -%}{{ colors }}{%- endcomment -%}
+              <span @click="currentColor='Dark Gray'" class="w-8 h-8 bg-gray-800 border ring-2 ring-offset-1 ring-gray-800 rounded-full transition duration-100"></span>
+              <!-- <button @click="currentColor='Gray'" type="button" class="w-8 h-8 bg-gray-500 border ring-2 ring-offset-1 ring-transparent hover:ring-gray-200 rounded-full transition duration-100"></button>
+              <button @click="currentColor='Light Gray'" type="button" class="w-8 h-8 bg-gray-200 border ring-2 ring-offset-1 ring-transparent hover:ring-gray-200 rounded-full transition duration-100"></button>
+              <button @click="currentColor='White'" type="button" class="w-8 h-8 bg-white border ring-2 ring-offset-1 ring-transparent hover:ring-gray-200 rounded-full transition duration-100"></button> -->
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+        <!-- color - end -->
+
+        <!-- size - start -->
+        {% if product.options_by_name['Size'].values > 0 %}
+          <div class="mb-8 md:mb-10" x-data>
+            <span class="inline-block text-gray-500 text-sm md:text-base font-semibold mb-3">Size</span>
+              <div class="flex flex-wrap gap-3">
+              {% for sizes in product.options_by_name['Size'].values %}
+                {{ forloop.index }}
+                <button @click="$refs.bt.classList.add('bg-black','text-white','border-green')" @click.away="$refs.bt.classList.remove('bg-black','text-white','border-green')" x-ref="bt" type="button" class="w-14 h-12 flex justify-center items-center  hover:bg-gray-100 active:bg-gray-200 text-sm font-semibold text-center border transition duration-100">{{ sizes }}</button>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- size - end -->
+
+        <!-- quantity -->
+        <div x-data="{quantity:0, maxValue:3}" class="flex flex-col space-y-5 my-8">
+          <span class="text-gray-500 font-semibold">Quantity</span>
+          <div class="w-auto h-12 flex space-x-1 sm:items-center sm:justify-start justify-center">
+            <div @click="(quantity > 0)? quantity--: quantity-0" id="decrease" class="w-10 h-10 bg-white rounded-full flex items-center justify-center border border-gray-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+              </svg>
+            </div>
+            <div id="numBox" class="w-40 h-10 bg-white flex items-center justify-center border-gray-500 font-semibold text-lg border border-black">
+              <span x-text="quantity">0</span>
+            </div>
+            <div @click="(quantity < maxValue)? quantity++: quantity+0" id="increase" class="w-10 h-10 bg-white rounded-full flex border-gray-500 items-center justify-center border border-black">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <!-- quantity -->
+
+
+
+        <!-- shipping notice - start -->
+        <div class="flex items-center text-gray-500 gap-2 mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+          </svg>
+
+          <span class="text-sm">2-4 day shipping</span>
+        </div>
+        <!-- shipping notice - end -->
+        <!-- buttons - start -->
+        <div class="flex gap-2.5">
+          <input type="submit" class="inline-block flex-1 sm:flex-none bg-green-700 hover:bg-green-600 active:bg-green-500 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-sm outline-none transition duration-100 px-8 py-3"" name="add" value="Add to cart">
+          <a href="#" class="inline-block bg-gray-200 hover:bg-gray-300 focus-visible:ring ring-indigo-300 text-gray-500 active:text-gray-700 text-sm md:text-base font-semibold text-center rounded-sm outline-none transition duration-100 px-8 py-3">Buy now</a>
+        </div>
+        <!-- buttons - end -->
+      </div>
+      <!-- content - end -->
+    </div>
+  </div>
+</div>
+<div class="flex flex-col space-y-3 mx-12">
+  <div class="flex justify justify-start items-center space-x-9 my-2">
+    <span class="font-semibold text-3xl border-b-4 border-black">Description</span>
+    <h1 class="hidden">Reviews</h1>
+    <svg class="hidden" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  </div>
+  <div class="">
+    {{ product.content }}
+  </div>
+</div>
+
+
+
+{% endform %}
+
+
+
+
+<!-- {% assign current_variant = product.selected_or_first_available_variant %}
+{% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+<img src="{{ featured_image | img_url: 'large' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg">
+{% for image in product.images %}
+  <a href="{{ image.src | img_url: 'large' }}">
+    <img src="{{ image.src | img_url: 'compact' }}" alt="{{ image.alt | escape }}">
+  </a>
+{% endfor %}
+<h1>{{ product.title }}</h1>
+<form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
+  <select name="id" id="productSelect">
+    {% for variant in product.variants %}
+      {% if variant.available %}
+        <option value="{{ variant.id }}">
+          {{ variant.title }} - {{ variant.price | money_with_currency }}
+        </option>
+      {% else %}
+        <option disabled="disabled">
+          {{ variant.title }} - sold out
+        </option>
+      {% endif %}
+    {% endfor %}
+  </select>
+  {{ current_variant.price | money }}
+  <label for="Quantity">quantity</label>
+  <input type="number" id="Quantity" name="quantity" value="1" min="1">
+  <button type="submit" name="add" id="AddToCart">Add to cart</button>
+</form>
+<div>{{ product.description }}</div> -->

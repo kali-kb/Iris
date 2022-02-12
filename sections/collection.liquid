@@ -1,0 +1,171 @@
+<!-- navigation -->
+<!--sidebar-->
+<div class="absolute bg-white hidden h-full w-40 flex flex-col space-y-7 p-11">
+  <span>Home</span>
+  <span>Catalog</span>
+  <span>Contact</span>
+  <span>About Us</span>
+</div>
+<!-- navigation -->
+<!-- <div class="flex sm:flex-row flex-col sm:items-center xl:mx-9">
+  <nav class="flex sm:mx-10 mx-5 my-7" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+      <li class="inline-flex items-center">
+        <a href="#" class="inline-flex items-center text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+        <svg class="mr-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+        Home
+        </a>
+      </li>
+      <li>
+        <div class="flex items-center">
+          <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+          <a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">Catalog</a>
+        </div>
+      </li>
+    </ol>
+  </nav> -->
+  <div class="mx-20 my-8">
+    {% render 'breadcrumbs' %}
+  </div>
+  <div class="text-left dropdown inline w-36 float-right sm:mx-16 mx-5 bottom-14">
+    <span class="rounded-md shadow-sm"
+      ><button class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-sm hover:text-gray-500 focus:outline-none focus:border-black focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800" 
+        type="button" aria-haspopup="true" aria-expanded="true" aria-controls="headlessui-menu-items-117">
+        <span>Sort by</span>
+        <svg class="w-5 h-5 ml-2 -mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+        </button
+    ></span>
+    <div class="opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-95">
+      <div class="absolute sm:-translate-x-14 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-sm shadow-lg outline-none" aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
+        <div class="py-1">
+          <a href="javascript:void(0)" tabindex="0" class="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"  role="menuitem" >Account settings</a>
+          <a href="javascript:void(0)" tabindex="1" class="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"  role="menuitem" >Support</a>
+          <!-- <span role="menuitem" tabindex="-1" class="flex justify-between w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 cursor-not-allowed opacity-50" aria-disabled="true">New feature (soon)</span> -->
+          <a href="javascript:void(0)" tabindex="2" class="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left" role="menuitem" >License</a></div>
+        <div class="py-1">
+          <a href="javascript:void(0)" tabindex="3" class="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"  role="menuitem" >Sign out</a></div>
+      </div>
+    </div>
+  </div>
+  <style>
+    .dropdown:focus-within .dropdown-menu {
+      position: absolute;
+      opacity:1;
+      transform: translate(0) scale(1);
+      visibility: visible;
+      z-index: 9999;
+    }
+  </style>
+
+
+
+</div>
+<!-- product grid -->
+{% paginate collection.products by 6 %}
+<div class="bg-white py-6 sm:py-8 lg:py-12 xl:mx-11 mt-12">
+  <div class="max-w-screen-2xl px-4 md:px-8 mx-auto">
+    <!-- text - start -->
+    <!-- <div class="mb-10 md:mb-16">
+      <h2 class="text-gray-800 text-2xl lg:text-3xl font-bold mb-4 md:mb-6">8 <span class="text-base">Products out of</span>56</h2>
+    </div> -->
+    <!-- text - end -->
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <!-- product - start -->
+      
+        {% for product in collection.products %}
+        <div>
+          <a href="#" class="group h-auto block bg-gray-100 overflow-hidden relative">
+            {% if product.featured_image != blank %}
+              <img src="{{ product.featured_image | img_url: 'large' }}" loading="lazy" alt="Photo by Austin Wade" class="w-full h-full object-cover object-center group-hover:scale-110 transition duration-200" />
+            {% else %}
+              {{ 'image' | placeholder_svg_tag }}"
+            {% endif %}
+            {% if product.price_varies %}
+              <span class="text-red-500 text-sm font-semibold tracking-wider uppercase rounded-full ring-2 ring-red-500 absolute right-2 top-3 px-1 py-2.5">-{{ product.compare_at_price_max | minus: product.price | times: 100.0 |    divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0' | append: '%'}}</span>
+            {% endif %}
+            
+          </a>
+          <div class="flex flex-col justify-between items-start rounded-b-lg gap-2 p-4">
+            <div class="flex flex-col ">
+              <a href="{{ product.url }}" class="text-gray-800 hover:text-gray-500 lg:text-lg font-bold transition duration-100">{{ product.title }}</a>
+              <div class="space-x-1">
+                <span class="font-semibold text-lg">${{ product.price | money_without_currency }}</span>
+                {%- if product.price < product.compare_at_price -%}
+                  <span class="text-sm line-through">{{ product.compare_at_price_max | money_without_currency }}</span>
+                {%- endif -%}
+              </div>
+            </div>
+            <button class="bg-green-700 text-white w-full py-1 hover:bg-green-500 hover:scale-105 hover:duration-150">Add to cart</button>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- paginations -->
+  <!-- snippet -->
+  <ul id="pagination" class="flex flex-row justify-center">
+    {% if paginate.previous.is_link %}
+      <li>
+        <a href="{{ paginate.previous.url }}">
+          <button><li class="ring ring-1 ring-black px-2 py-1 active:bg-black active:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+            </svg>
+          </li>
+          </button>
+        </a>
+      </li>
+    {% endif %}
+    {% for part in paginate.parts %}
+      {% if part.is_link %}
+        <a href="{{ part.url }}">
+          <li id="page-value" class="py-1 px-3 ring ring-1 ring-black mx-2 hover:bg-black hover:text-white select-none">{{ part.title }}</li>
+        </a>
+      {% else %}
+        <a href="{{ part.url }}">
+          <button><li class="ring ring-black px-3 py-1 bg-black text-white active:bg-black active:text-white font-semibold">{{ part.title }}</li></button>
+          <!-- <li id="page-value" class="py-1 px-2 border border-8 rounded text-white bg-black border-black mx-2 hover:bg-black hover:text-white select-none">{{ part.title }}</li> -->
+        </a>
+      {% endif %}  
+    {% endfor %}   
+    {% if paginate.next.is_link %}
+      <li>
+        <a href="{{ paginate.next.url }}">
+          <button><li class="ring ring-1 ring-black px-2 py-1 active:bg-black active:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+            </li>
+          </button>
+        </a>  
+      </li>
+    {% endif %}  
+  </ul>
+  <!-- snippet -->
+
+{% endpaginate %}
+
+<!-- paginations -->
+
+
+
+<!-- {% paginate collection.products by 2 %}
+  <h1>{{ collection.title }}</h1>
+  {% for product in collection.products %}
+    <div>
+      <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+      {{ product.price | money }}
+      {% unless product.available %}<br><strong>sold out</strong>{% endunless %}
+      <a href="{{ product.url | within: collection }}">
+        <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+      </a>
+    </div>
+  {% else %}
+    <p>no matches</p>
+  {% endfor %}
+  {% if paginate.pages > 1 %}
+    {{ paginate | default_pagination }}
+  {% endif %}
+{% endpaginate %} -->
